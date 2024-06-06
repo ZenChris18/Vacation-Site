@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container-form">
     <h1>Register</h1>
-    <form method="POST" action="">
+    <form method="POST" action="{{ url_for('register') }}">
         {{ form.hidden_tag() }}  <!-- CSRF token -->
         <div>
             {{ form.username(size=32) }}<br>  <!-- Removed label rendering -->
