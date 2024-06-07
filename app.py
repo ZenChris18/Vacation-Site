@@ -32,7 +32,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             login_user(user)
-            return redirect(url_for('profile'))
+            return redirect(url_for("profile"))
         else:
             flash("Login Unsuccessful. Please check email and password", 'danger')
     return render_template("login.html")
@@ -62,12 +62,11 @@ def register():
         elif len(password) < 5:
             flash("Passwords must be greater than 4 characters", category="error")
         else:
-            new_user = User(username=username, email=email)
-            new_user.set_password(password)
+            new_user = User(username=username, email=email, password=password.set_password(password))
             db.session.add(new_user)
             db.session.commit()
             flash("Account Created!", category="success")
-            return redirect(url_for('login'))
+            return redirect(url_for("profile"))
     return render_template("register.html")
 
 
