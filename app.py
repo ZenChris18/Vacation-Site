@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_wtf.csrf import CSRFProtect
 from flask_login import login_user, login_required, current_user, LoginManager
 from forms import LoginForm, RegisterForm
@@ -17,6 +17,8 @@ db.init_app(app)
 csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
+migrate = Migrate(app, db)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -73,7 +75,7 @@ def profile():
 def saved():
     return render_template("saved.html")
 
-migrate = Migrate(app, db)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
