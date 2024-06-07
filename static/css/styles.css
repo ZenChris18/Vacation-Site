@@ -6,6 +6,13 @@ body {
     padding: 0;
 }
 
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+}
+
+
 .navbar {
     background-color: #007bff;
     overflow: hidden;

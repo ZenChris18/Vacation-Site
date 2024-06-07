@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, session, flash
+from flask import Flask, render_template, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_login import login_user, login_required, current_user, LoginManager
 from forms import LoginForm, RegisterForm
-from models import db, User  # Import User from models.py
-from flask_sqlalchemy import SQLAlchemy
+from models import db, User
+from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash
 import os
 
 app = Flask(__name__)
@@ -11,13 +12,11 @@ secret_key = os.environ.get("SECRET_KEY", "58d3b9a5efb4388ff3c5fd65fe853dcc38b80
 app.config["SECRET_KEY"] = secret_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
-
-
+csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-
-csrf = CSRFProtect(app)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -34,17 +33,12 @@ def login():
         email = form.email.data
         password = form.password.data
         user = User.query.filter_by(email=email).first()
-        if user:
-            if user.check_password(password):
-                login_user(user)
-                flash("Login successful!", "success")
-                return redirect(url_for("profile"))
-            else:
-                flash("Invalid email or password. Please try again.", "error")
-        else:
-            flash("User not found. Please check your email and try again.", "error")
+        if user and user.check_password(password):
+            login_user(user)
+            flash("Login successful!", "success")
+            return redirect(url_for("profile"))
+        flash("Invalid email or password. Please try again.", "error")
     return render_template("login.html", form=form)
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -53,27 +47,21 @@ def register():
         username = form.username.data
         email = form.email.data
         password = form.password.data
-
-        existing_user = User.query.filter_by(username=username).first()
-        if existing_user:
+        if User.query.filter_by(username=username).first():
             flash('Username already exists. Please choose a different one.', 'error')
-            return redirect(url_for('register'))
-        
-        existing_email = User.query.filter_by(email=email).first()
-        if existing_email:
+        elif User.query.filter_by(email=email).first():
             flash('Email already exists. Please use a different one.', 'error')
-            return redirect(url_for('register'))
-        
-        new_user = User(username=username, email=email, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-
-        login_user(new_user)
-
-        flash('Registration successful! You are now signed in.', 'success')
-        return redirect(url_for('profile'))
-    
+        else:
+            new_user = User(username=username, email=email)
+            new_user.set_password(password)
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            flash('Registration successful! You are now signed in.', 'success')
+            return redirect(url_for('profile'))  # Redirect to profile page after successful registration
     return render_template('register.html', form=form)
+
+
 
 @app.route("/profile")
 @login_required
@@ -84,6 +72,8 @@ def profile():
 @login_required
 def saved():
     return render_template("saved.html")
+
+migrate = Migrate(app, db)
 
 if __name__ == "__main__":
     app.run(debug=True)

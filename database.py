@@ -1,14 +1,11 @@
-import sqlite3
-from models import db
-
+from models import db, User
 
 def init_db(app):
     with app.app_context():
         db.create_all()
 
 def insert_user(username, email, password):
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', (username, email, password))
-    conn.commit()
-    conn.close()
+    user = User(username=username, email=email)
+    user.set_password(password)  # Hash the password before storing it
+    db.session.add(user)
+    db.session.commit()

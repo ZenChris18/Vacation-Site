@@ -7,3 +7,4 @@ Libraries Used
 5. sqlite3 - for database
 6. email-validator -- When we use the Email validator in WTForms, it expects the email_validator module to be installed for email validation
 7. CSRFProtect - CSRFProtect is a CSRF (Cross-Site Request Forgery) protection extension for Flask. It helps prevent CSRF attacks by adding CSRF tokens to forms.
+8. werkzeug
