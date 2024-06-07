@@ -1,37 +1,14 @@
 {% extends "layout.html" %}
 
-{% block body %}
+{%block body%}
 <div class="container-form">
-    <h1>Register</h1>
-    <form method="POST" action="{{ url_for('register') }}">
-        {{ form.hidden_tag() }}  <!-- CSRF token -->
-        <div>
-            <input type="text" name="username" placeholder="Username" value="{{ form.username.data or '' }}" size="32">
-            {% for error in form.username.errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div>
-            <input type="email" name="email" placeholder="Email" value="{{ form.email.data or '' }}" size="32">
-            {% for error in form.email.errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="Password" size="32">
-            {% for error in form.password.errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" size="32">
-            {% for error in form.confirm_password.errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div>
-            <input type="submit" value="Register">
-        </div>
+    <form method="POST">
+        <h1>Register</h1>
+        <input type="text" id="username" name="username" placeholder="Username">
+        <input type="email" id="email" name="email" placeholder="Email">
+        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password"><br>
+        <button type="submit" class="btn btn-primary">submit</button>
     </form>
 </div>
-{% endblock %}
+{%endblock%}
