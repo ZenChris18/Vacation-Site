@@ -59,17 +59,17 @@ def register():
         user_by_email = User.query.filter_by(email=email).first()
 
         if user_by_username:
-            flash("Username already exists!", category="error")
+            flash("Username already exists!", category="danger")
         elif user_by_email:
-            flash("Email already exists!", category="error")
+            flash("Email already exists!", category="danger")
         elif len(email) < 4:
-            flash("Email is too short!", category="error")
+            flash("Email is too short!", category="danger")
         elif len(username) < 2:
-            flash("Username is too short!", category="error")
+            flash("Username is too short!", category="danger")
         elif password != confirm_password:
-            flash("Passwords don't match!", category="error")
+            flash("Passwords don't match!", category="danger")
         elif len(password) < 5:
-            flash("Passwords must be greater than 4 characters", category="error")
+            flash("Passwords must be greater than 4 characters", category="danger")
         else:
             new_user = User(username=username, email=email)
             new_user.set_password(password)
