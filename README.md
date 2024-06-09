@@ -7,3 +7,7 @@ Libraries Used
 5. Flask-WTF CSRFProtect - pip install Flask-WTF
 
 
+Added this line of code in the forms login.html and register.html:
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+This hides the csrf token which took me a long time to figure out.
