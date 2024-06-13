@@ -4,9 +4,11 @@
 <div class="centered">
     <h1>Welcome to PinasGetaway</h1>
 </div>
-<!-- Add your content here -->
 <div class="centered">
-    <p>Select a destination</p>
+    <h2>{{ destination_label }}</h2>
+    <p>{{ destination_description }}</p>
+    {% if destination_image %}
+    <img src="{{ destination_image }}" alt="{{ destination_label }}" style="max-width: 400px;">
+    {% endif %}
 </div>
-
 {% endblock %}
