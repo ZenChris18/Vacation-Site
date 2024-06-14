@@ -1,14 +1,6 @@
-{% extends "layout.html" %}
+{%extends "layout.html"%}
 
-{% block body %}
-<div class="centered">
-    <h1>Welcome to PinasGetaway</h1>
-</div>
-<div class="centered">
-    <h2>{{ destination_label }}</h2>
-    <p>{{ destination_description }}</p>
-    {% if destination_image %}
-    <img src="{{ destination_image }}" alt="{{ destination_label }}" style="max-width: 400px;">
-    {% endif %}
-</div>
-{% endblock %}
+{%block body%}
+    <h1>Home Page</h1>
+
+{%endblock%}

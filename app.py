@@ -32,68 +32,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    try:
-        # SPARQL query to fetch Philippine vacation destinations with images (optional)
-        sparql_query = """
-        SELECT DISTINCT ?item ?itemLabel ?itemDescription ?image WHERE {
-          ?item wdt:P31/wdt:P279* wd:Q570116 ;  # Instances of tourist destination
-                wdt:P17 wd:Q928 ;               # Located in the Philippines
-                rdfs:label ?itemLabel .
-          FILTER(LANG(?itemLabel) = "en")
-          OPTIONAL {
-            ?item wdt:P18 ?image .  # Image of the destination (optional)
-          }
-          OPTIONAL {
-            ?item schema:description ?itemDescription .
-            FILTER(LANG(?itemDescription) = "en")
-          }
-        }
-        LIMIT 10
-        """
-
-        url = 'https://query.wikidata.org/sparql'
-        headers = {
-            'User-Agent': 'YourAppName/1.0 (contact@example.com)',
-            'Accept': 'application/json'
-        }
-        params = {
-            'query': sparql_query,
-            'format': 'json'
-        }
-
-        response = requests.get(url, headers=headers, params=params)
-        response.raise_for_status()
-        data = response.json()
-
-        destinations = []
-        for item in data['results']['bindings']:
-            destination = {
-                'label': item['itemLabel']['value'],
-                'description': item.get('itemDescription', {'value': ''})['value'],
-                'image': item.get('image', {'value': ''})['value']
-            }
-            destinations.append(destination)
-
-        if destinations:
-            random_destination = random.choice(destinations)
-            destination_label = random_destination['label']
-            destination_description = random_destination['description']
-            destination_image = random_destination['image']
-        else:
-            destination_label = "No destinations found"
-            destination_description = ""
-            destination_image = ""
-
-    except requests.exceptions.RequestException as e:
-        destination_label = "Error fetching data"
-        destination_description = str(e)
-        destination_image = ""
-
-    return render_template('index.html', destination_label=destination_label,
-                           destination_description=destination_description,
-                           destination_image=destination_image)
-
-
+    return render_template("index.html")
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
