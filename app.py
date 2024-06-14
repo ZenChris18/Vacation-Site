@@ -1,20 +1,17 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, login_required, current_user, LoginManager, logout_user
 from models import db, User, init_db
 import os
 from flask_wtf.csrf import CSRFProtect
-import requests
+import pandas as pd
 import random
-
 
 app = Flask(__name__)
 secret_key = os.environ.get("SECRET_KEY", "58d3b9a5efb4388ff3c5fd65fe853dcc38b808d739280b06")
 app.config["SECRET_KEY"] = secret_key
 
-
 # csrf token
 csrf = CSRFProtect(app)
-
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -33,6 +30,7 @@ def load_user(user_id):
 @app.route("/")
 def index():
     return render_template("index.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -81,7 +79,6 @@ def register():
             return redirect(url_for("profile"))
     return render_template("register.html")
 
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -94,13 +91,20 @@ def logout():
 def profile():
     return render_template('profile.html', user=current_user)
 
-
 @app.route("/saved")
 @login_required
 def saved():
     return render_template("saved.html")
 
+# Load the dataset
+df = pd.read_csv("philippine_tourist_sites.csv")
+print(df.head())  # Print the first few rows to verify data
 
+@app.route("/load_more_vacations")
+def load_more_vacations():
+    num_spots = int(request.args.get('num_spots', 5))  # Number of spots to load at a time
+    random_spots = df.sample(n=num_spots).to_dict(orient='records')
+    return jsonify(random_spots)
 
 if __name__ == "__main__":
     app.run(debug=True)

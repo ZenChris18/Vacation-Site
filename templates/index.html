@@ -1,6 +1,86 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
 
-{%block body%}
+{% block body %}
     <h1>Home Page</h1>
+    <div class="container">
+        <div class="row" id="vacation-container">
+            <!-- Initial vacation spots will be loaded here -->
+        </div>
+    </div>
+    <div id="loading" style="text-align: center; margin: 20px 0;">
+        <p>Loading more vacation spots...</p>
+    </div>
+{% endblock %}
 
-{%endblock%}
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const vacationContainer = document.getElementById('vacation-container');
+        const loadingIndicator = document.getElementById('loading');
+        let page = 1;
+
+        function loadVacationSpots() {
+            fetch(`/load_more_vacations?num_spots=5`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(spot => {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4';
+
+                        const card = document.createElement('div');
+                        card.className = 'card mb-4';
+
+                        const img = document.createElement('img');
+                        img.src = spot.Image;
+                        img.alt = spot.Name;
+                        img.className = 'card-img-top';
+                        img.style.height = '200px';
+                        img.style.objectFit = 'cover';
+                        img.onerror = function() {
+                            this.onerror = null;
+                            this.src = '{{ url_for("static", filename="images/fallback.jpg") }}';
+                        };
+
+                        const cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
+
+                        const cardTitle = document.createElement('h5');
+                        cardTitle.className = 'card-title';
+                        cardTitle.textContent = spot.Name;
+
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.textContent = `Location: ${spot.Location}`;
+
+                        cardBody.appendChild(cardTitle);
+                        cardBody.appendChild(cardText);
+                        card.appendChild(img);
+                        card.appendChild(cardBody);
+                        col.appendChild(card);
+
+                        vacationContainer.appendChild(col);
+                    });
+
+                    loadingIndicator.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error loading vacation spots:', error);
+                    loadingIndicator.style.display = 'none';
+                });
+        }
+
+        function handleScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                loadingIndicator.style.display = 'block';
+                loadVacationSpots();
+            }
+        }
+
+        // Initial load
+        loadVacationSpots();
+
+        // Infinite scroll
+        window.addEventListener('scroll', handleScroll);
+    });
+</script>
+{% endblock %}
