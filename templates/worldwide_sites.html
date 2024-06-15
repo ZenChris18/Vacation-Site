@@ -60,8 +60,9 @@
 
                         // Link each card to details page
                         card.addEventListener('click', function() {
-                            window.location.href = `/details/${index}?dataset=worldwide`;
+                            window.location.href = `/details/${spot.Name}?dataset=worldwide`;
                         });
+
 
                         vacationContainer.appendChild(col);
                     });
