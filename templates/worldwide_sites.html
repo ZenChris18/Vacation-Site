@@ -23,7 +23,7 @@
             fetch(`/load_more_vacations?num_spots=5&dataset=worldwide`)
                 .then(response => response.json())
                 .then(data => {
-                    data.forEach(spot => {
+                    data.forEach((spot, index) => {  // Use 'index' provided by forEach
                         const col = document.createElement('div');
                         col.className = 'col-md-4';
 
@@ -57,6 +57,11 @@
                         card.appendChild(img);
                         card.appendChild(cardBody);
                         col.appendChild(card);
+
+                        // Link each card to details page
+                        card.addEventListener('click', function() {
+                            window.location.href = `/details/${index}?dataset=worldwide`;
+                        });
 
                         vacationContainer.appendChild(col);
                     });

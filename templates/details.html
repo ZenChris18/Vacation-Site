@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card">
+            <img src="{{ spot.Image }}" class="card-img-top" alt="{{ spot.Name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ spot.Name }}</h5>
+                <p class="card-text">Location: {{ spot.Location }}</p>
+                <!-- Add more details as needed -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

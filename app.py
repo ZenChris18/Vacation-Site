@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort
 from flask_login import login_user, login_required, current_user, LoginManager, logout_user
 from models import db, User, init_db
 import os
@@ -107,10 +107,37 @@ worldwide_df = pd.read_csv("worlds_tourist_sites.csv")
 @app.route("/load_more_vacations")
 def load_more_vacations():
     num_spots = int(request.args.get('num_spots', 5))  # Number of spots to load at a time
-    dataset = request.args.get('dataset', 'philippine')
-    df = philippine_df if dataset == 'philippine' else worldwide_df
+    dataset = request.args.get('dataset', 'worldwide')
+    
+    # Select dataset based on 'dataset' parameter
+    if dataset == 'philippine':
+        df = philippine_df
+    else:
+        df = worldwide_df
+    
+    # Check if num_spots exceeds the number of rows in the dataset
+    if num_spots > len(df):
+        num_spots = len(df)  # Limit num_spots to the number of rows in the dataset
+    
     random_spots = df.sample(n=num_spots).to_dict(orient='records')
     return jsonify(random_spots)
+
+@app.route("/details/<int:index>")
+def details(index):
+    dataset = request.args.get('dataset', 'worldwide')
+    
+    # Select dataset based on 'dataset' parameter
+    if dataset == 'philippine':
+        df = philippine_df
+    else:
+        df = worldwide_df
+    
+    # Check if index is within valid range
+    if index < 0 or index >= len(df):
+        abort(404)
+    
+    spot = df.iloc[index].to_dict()
+    return render_template("details.html", spot=spot)
 
 if __name__ == "__main__":
     app.run(debug=True)

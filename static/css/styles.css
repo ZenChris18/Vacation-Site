@@ -118,3 +118,12 @@ form input[type="submit"]:hover {
     height: 200px;
     object-fit: cover;
 }
+
+.card {
+    cursor: pointer; /* Add pointer cursor to indicate clickable */
+    transition: transform 0.2s ease; /* Optional: Add a smooth transition on hover */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Optional: Add a slight lift effect on hover */
+}
