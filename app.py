@@ -31,6 +31,10 @@ def load_user(user_id):
 def index():
     return render_template("index.html")
 
+@app.route("/worldwide")
+def worldwide_sites():
+    return render_template("worldwide_sites.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -96,13 +100,15 @@ def profile():
 def saved():
     return render_template("saved.html")
 
-# Load the dataset
-df = pd.read_csv("philippine_tourist_sites.csv")
-print(df.head())  # Print the first few rows to verify data
+# Load the datasets
+philippine_df = pd.read_csv("philippine_tourist_sites.csv")
+worldwide_df = pd.read_csv("worlds_tourist_sites.csv")
 
 @app.route("/load_more_vacations")
 def load_more_vacations():
     num_spots = int(request.args.get('num_spots', 5))  # Number of spots to load at a time
+    dataset = request.args.get('dataset', 'philippine')
+    df = philippine_df if dataset == 'philippine' else worldwide_df
     random_spots = df.sample(n=num_spots).to_dict(orient='records')
     return jsonify(random_spots)
 

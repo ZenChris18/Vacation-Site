@@ -11,6 +11,11 @@
     <nav class="navbar">
         <div class="navbar-left">
             <a href="{{ url_for('index') }}">PinasGetaway</a>
+            {% if request.path == url_for('index') %}
+                <a href="{{ url_for('worldwide_sites') }}">Worldwide Tourist Sites</a>
+            {% elif request.path == url_for('worldwide_sites') %}
+                <a href="{{ url_for('index') }}">Philippine Tourist Sites</a>
+            {% endif %}
         </div>
         <div class="navbar-right">
             {% if current_user.is_authenticated %}
