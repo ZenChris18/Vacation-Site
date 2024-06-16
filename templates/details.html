@@ -7,6 +7,11 @@
             <div class="card-body">
                 <h5 class="card-title">{{ spot.Name }}</h5>
                 <p class="card-text">Location: {{ spot.Location }}</p>
+                {% if description %}
+                    <p class="card-text">Description: {{ description }}</p>
+                {% else %}
+                    <p class="card-text">Description: Not available</p>
+                {% endif %}
                 <!-- Add more details as needed -->
             </div>
         </div>

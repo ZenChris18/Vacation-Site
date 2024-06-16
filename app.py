@@ -5,6 +5,7 @@ import os
 from flask_wtf.csrf import CSRFProtect
 import pandas as pd
 import random
+from scrape_utils import fetch_description
 
 app = Flask(__name__)
 secret_key = os.environ.get("SECRET_KEY", "58d3b9a5efb4388ff3c5fd65fe853dcc38b808d739280b06")
@@ -125,16 +126,28 @@ def load_more_vacations():
 @app.route("/details/<string:name>")
 def details(name):
     dataset = request.args.get('dataset', 'worldwide')
-    
+
     if dataset == 'philippine':
         df = philippine_df
     else:
         df = worldwide_df
-    
+
     # Find the spot with matching Name
-    spot = df[df['Name'] == name].to_dict(orient='records')[0]
-    
-    return render_template("details.html", spot=spot)
+    spot = df[df['Name'] == name].to_dict(orient='records')
+
+    if not spot:
+        return render_template("error.html", message="Spot not found"), 404
+
+    # Assuming there is only one spot found, take the first one
+    spot = spot[0]
+
+    # Fetch description using modified fetch_description function
+    description = fetch_description(spot['Name'], spot['Location'])
+
+    if description is None:
+        description = "Description not available"
+
+    return render_template("details.html", spot=spot, description=description)
 
 if __name__ == "__main__":
     app.run(debug=True)

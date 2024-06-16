@@ -7,6 +7,7 @@ Libraries Used
 5. Flask-WTF CSRFProtect - pip install Flask-WTF
 6. requests
 7. random
+8. pip install requests beautifulsoup4
 
 
 Added this line of code in the forms login.html and register.html:

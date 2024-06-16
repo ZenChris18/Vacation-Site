@@ -8,3 +8,6 @@ __pycache__/app.cpython-312.pyc
 *.db
 instance/database.db
 instance/database.db
+instance/database.db
+philippine_tourist_sites copy.csv
+worlds_tourist_sites copy.csv
