@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import time
+
 
 def fetch_description(name, location):
     # Step 1: Perform a search query on Wikipedia API
