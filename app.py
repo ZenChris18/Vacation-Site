@@ -107,7 +107,7 @@ worldwide_df = pd.read_csv("worlds_tourist_sites.csv")
 
 @app.route("/load_more_vacations")
 def load_more_vacations():
-    num_spots = int(request.args.get('num_spots', 5))  # Number of spots to load at a time
+    num_spots = int(request.args.get('num_spots', 6))  # Number of spots to load at a time
     dataset = request.args.get('dataset', 'worldwide')
     
     # Select dataset based on 'dataset' parameter

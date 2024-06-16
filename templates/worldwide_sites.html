@@ -20,7 +20,7 @@
         let page = 1;
 
         function loadVacationSpots() {
-            fetch(`/load_more_vacations?num_spots=5&dataset=worldwide`)
+            fetch(`/load_more_vacations?num_spots=6&dataset=worldwide`)
                 .then(response => response.json())
                 .then(data => {
                     data.forEach((spot, index) => {  // Use 'index' provided by forEach
