@@ -2,14 +2,21 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h3>Saved Spots</h3>
-        <ul class="list-group">
-            {% for spot in saved_spots %}
-                <li class="list-group-item">
-                    <h5>{{ spot.spot_name }}</h5>
-                    <p>Location: {{ spot.spot_location }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        <h2>Saved Spots</h2>
+        {% if saved_spots %}
+            <ul class="list-group mt-3">
+                {% for spot in saved_spots %}
+                    <li class="list-group-item">
+                        <a href="{{ url_for('details', name=spot.spot_name) }}">{{ spot.spot_name }} - {{ spot.spot_location }}</a>
+                        <form action="{{ url_for('remove_spot', spot_id=spot.id) }}" method="post" class="float-end">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No spots saved yet.</p>
+        {% endif %}
     </div>
 {% endblock %}

@@ -103,7 +103,7 @@ def saved_spots():
     saved_spots = SavedSpot.query.filter_by(user_id=current_user.id).all()
     return render_template("saved.html", saved_spots=saved_spots)
 
-
+# Saving Vacation Spots
 @app.route('/save_spot', methods=['POST'])
 @login_required
 def save_spot():
@@ -128,6 +128,21 @@ def save_spot():
     return redirect(url_for('details', name=spot_name))
 
 
+#Removing Vacation Spots
+@app.route('/remove_spot/<int:spot_id>', methods=['POST'])
+@login_required
+def remove_spot(spot_id):
+    spot = SavedSpot.query.get(spot_id)
+    if spot:
+        if spot.user_id == current_user.id:
+            db.session.delete(spot)
+            db.session.commit()
+            flash('Spot removed successfully!', 'success')
+        else:
+            flash('You do not have permission to remove this spot.', 'danger')
+    else:
+        flash('Spot not found.', 'danger')
+    return redirect(url_for('saved_spots'))
 
 
 
