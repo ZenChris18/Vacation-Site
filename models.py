@@ -23,6 +23,12 @@ class User(UserMixin, db.Model):
         # Return True if the user is active, False otherwise
         return True 
 
+class SavedSpot(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    spot_name = db.Column(db.String(200), nullable=False)
+    spot_location = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 def init_db(app):
     with app.app_context():
         db.create_all()

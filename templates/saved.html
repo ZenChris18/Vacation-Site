@@ -1,6 +1,15 @@
-{%extends "layout2.html"%}
+{% extends "layout2.html" %}
 
-{%block body%}
-    <h1>These are your saved destinations</h1>
-
-{%endblock%}
+{% block body %}
+    <div class="container mt-4">
+        <h3>Saved Spots</h3>
+        <ul class="list-group">
+            {% for spot in saved_spots %}
+                <li class="list-group-item">
+                    <h5>{{ spot.spot_name }}</h5>
+                    <p>Location: {{ spot.spot_location }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

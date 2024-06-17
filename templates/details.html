@@ -12,7 +12,14 @@
                 {% else %}
                     <p class="card-text">Description: Not available</p>
                 {% endif %}
-                <!-- Add more details as needed -->
+                {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('save_spot') }}" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="spot_name" value="{{ spot.Name }}">
+                        <input type="hidden" name="spot_location" value="{{ spot.Location }}">
+                        <button type="submit" class="btn btn-primary">Save Spot</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>

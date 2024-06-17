@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort
 from flask_login import login_user, login_required, current_user, LoginManager, logout_user
-from models import db, User, init_db
+from models import db, User, init_db, SavedSpot
 import os
 from flask_wtf.csrf import CSRFProtect
 import pandas as pd
@@ -97,10 +97,39 @@ def logout():
 def profile():
     return render_template('profile.html', user=current_user)
 
-@app.route("/saved")
+@app.route("/saved_spots")
 @login_required
-def saved():
-    return render_template("saved.html")
+def saved_spots():
+    saved_spots = SavedSpot.query.filter_by(user_id=current_user.id).all()
+    return render_template("saved.html", saved_spots=saved_spots)
+
+
+@app.route('/save_spot', methods=['POST'])
+@login_required
+def save_spot():
+    spot_name = request.form.get('spot_name')
+    spot_location = request.form.get('spot_location')
+    
+    if not spot_name or not spot_location:
+        flash('Invalid spot details!', 'danger')
+        return redirect(url_for('index'))
+
+    # Check if the spot is already saved
+    existing_spot = SavedSpot.query.filter_by(spot_name=spot_name, spot_location=spot_location, user_id=current_user.id).first()
+    
+    if existing_spot:
+        flash('Spot already saved!', 'warning')
+    else:
+        new_spot = SavedSpot(spot_name=spot_name, spot_location=spot_location, user_id=current_user.id)
+        db.session.add(new_spot)
+        db.session.commit()
+        flash('Spot saved successfully!', 'success')
+    
+    return redirect(url_for('details', name=spot_name))
+
+
+
+
 
 # Load the datasets
 philippine_df = pd.read_csv("philippine_tourist_sites.csv")
