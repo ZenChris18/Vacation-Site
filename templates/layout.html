@@ -28,32 +28,33 @@
             {% endif %}
         </div>
     </nav>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div id="flash-message" class="alert alert-dismissible fade show" role="alert">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    
     <div class="container">
         <!-- Search Form -->
         <form action="{{ url_for('search') }}" method="get" class="form-inline position-relative mt-3 mb-3">
             <div class="input-group">
                 <input type="text" name="query" class="form-control" placeholder="Search for a destination...">
-                <input type="hidden" name="dataset" value="worldwide">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-outline-success">Search</button>
                 </div>
             </div>
             <ul class="suggestions"></ul>
         </form>
-        
-        <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div id="flash-message" class="alert alert-dismissible fade show" role="alert">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endwith %}
     
+        <!-- Main Content Block -->
         {% block body %}
         {% endblock %}
     </div>
@@ -72,6 +73,5 @@
             }
         });
     </script>
-
 </body>
 </html>

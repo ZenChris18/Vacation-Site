@@ -1,36 +1,30 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.querySelector('input[name="query"]');
-    const suggestionsBox = document.querySelector('.suggestions');
+const form = document.querySelector('form');
+const queryInput = form.querySelector('input[name="query"]');
+const suggestionsList = form.querySelector('.suggestions');
 
-    searchInput.addEventListener('input', function () {
-        const query = searchInput.value;
-        if (query.length > 2) {
-            fetch(`/autocomplete?query=${query}`)
-                .then(response => response.json())
-                .then(suggestions => {
-                    suggestionsBox.innerHTML = '';
-                    suggestionsBox.style.display = 'block';
-                    suggestions.slice(0, 5).forEach(suggestion => { // Limit to 5 suggestions
-                        const li = document.createElement('li');
-                        li.textContent = suggestion;
-                        li.addEventListener('click', () => {
-                            searchInput.value = suggestion;
-                            suggestionsBox.innerHTML = '';
-                            suggestionsBox.style.display = 'none';
-                        });
-                        suggestionsBox.appendChild(li);
-                    });
-                });
-        } else {
-            suggestionsBox.innerHTML = '';
-            suggestionsBox.style.display = 'none';
-        }
-    });
+queryInput.addEventListener('input', function() {
+    const query = this.value.trim().toLowerCase();
+    const dataset = window.location.pathname.includes('worldwide') ? 'worldwide' : 'philippine';
 
-    document.addEventListener('click', function (e) {
-        if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-            suggestionsBox.innerHTML = '';
-            suggestionsBox.style.display = 'none';
-        }
-    });
+    fetch(`/autocomplete?query=${query}&dataset=${dataset}`)
+        .then(response => response.json())
+        .then(data => {
+            suggestionsList.innerHTML = ''; // Clear previous suggestions
+            data.forEach(suggestion => {
+                const li = document.createElement('li');
+                li.textContent = suggestion;
+                suggestionsList.appendChild(li);
+            });
+            suggestionsList.style.display = data.length ? 'block' : 'none';
+        })
+        .catch(error => {
+            console.error('Error fetching autocomplete suggestions:', error);
+        });
+});
+
+// Handle click outside to close suggestions
+document.addEventListener('click', function(event) {
+    if (!form.contains(event.target)) {
+        suggestionsList.style.display = 'none';
+    }
 });

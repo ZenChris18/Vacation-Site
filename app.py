@@ -6,6 +6,7 @@ from flask_wtf.csrf import CSRFProtect
 import pandas as pd
 import random
 from scrape_utils import fetch_description
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 secret_key = os.environ.get("SECRET_KEY", "58d3b9a5efb4388ff3c5fd65fe853dcc38b808d739280b06")
@@ -153,19 +154,37 @@ def details(name):
 # Search feature
 @app.route("/search", methods=['GET'])
 def search():
-    query = request.args.get('query', '')
-    dataset = request.args.get('dataset', 'worldwide')
+    query = request.args.get('query', '').strip()  # Strip whitespace from input
+    
+    # Determine dataset based on the referrer URL
+    referrer = request.referrer
+    if referrer:
+        parsed_url = urlparse(referrer)
+        if parsed_url.path == url_for('index'):
+            dataset = 'philippine'
+        elif parsed_url.path == url_for('worldwide_sites'):
+            dataset = 'worldwide'
+        else:
+            dataset = 'worldwide'  # Default to worldwide if referrer is unknown
+    else:
+        dataset = 'worldwide'  # Default to worldwide if referrer is not available
 
+    # Select the appropriate dataset
     if dataset == 'philippine':
         df = philippine_df
     else:
         df = worldwide_df
 
     # Filter the dataset based on the search query (searching both Name and Location)
-    results = df[df.apply(lambda row: query.lower() in row['Name'].lower() or query.lower() in row['Location'].lower(), axis=1)]
+    if query:
+        results = df[df.apply(lambda row: query.lower() in row['Name'].lower() or query.lower() in row['Location'].lower(), axis=1)]
+    else:
+        flash("Please enter a search query.", 'danger')
+        return redirect(request.referrer or url_for('index'))  # Redirect to previous page or index if query is empty
 
     results_list = results.to_dict(orient='records')
     return render_template("search.html", query=query, results=results_list)
+
 
 # AutoComplete
 @app.route('/autocomplete')

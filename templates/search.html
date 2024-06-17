@@ -1,20 +1,27 @@
-{% extends "layout.html" %}
+{% extends "layout2.html" %}
 
 {% block body %}
 <div class="container mt-4">
+    <h1>Search Results</h1>
     <div class="row">
-        {% for spot in results %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" src="{{ spot['Image'] }}" alt="{{ spot['Name'] }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ spot['Name'] }}</h5>
-                    <p class="card-text">{{ spot['Description'] }}</p>
-                    <a href="{{ url_for('details', name=spot['Name']) }}" class="btn btn-primary">View Details</a>
+        {% if results %}
+            {% for spot in results %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="{{ spot['Image'] }}" alt="{{ spot['Name'] }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ spot['Name'] }}</h5>
+                        <p class="card-text">{{ spot['Description'] }}</p>
+                        <a href="{{ url_for('details', name=spot['Name'], dataset=dataset) }}" class="btn btn-primary">View Details</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="col">
+                <p>No results found.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
