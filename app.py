@@ -149,5 +149,39 @@ def details(name):
 
     return render_template("details.html", spot=spot, description=description)
 
+
+# Search feature
+@app.route("/search", methods=['GET'])
+def search():
+    query = request.args.get('query', '')
+    dataset = request.args.get('dataset', 'worldwide')
+
+    if dataset == 'philippine':
+        df = philippine_df
+    else:
+        df = worldwide_df
+
+    # Filter the dataset based on the search query (searching both Name and Location)
+    results = df[df.apply(lambda row: query.lower() in row['Name'].lower() or query.lower() in row['Location'].lower(), axis=1)]
+
+    results_list = results.to_dict(orient='records')
+    return render_template("search.html", query=query, results=results_list)
+
+# AutoComplete
+@app.route('/autocomplete')
+def autocomplete():
+    query = request.args.get('query', '').lower()
+    dataset = request.args.get('dataset', 'worldwide')
+
+    if dataset == 'philippine':
+        df = philippine_df
+    else:
+        df = worldwide_df
+
+    suggestions = df[df['Name'].str.lower().str.contains(query) | df['Location'].str.lower().str.contains(query)]['Name'].tolist()
+    return jsonify(suggestions)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

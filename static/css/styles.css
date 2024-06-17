@@ -1,3 +1,4 @@
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -11,7 +12,6 @@ body {
     font-size: 0.9em;
     margin-top: 0.5em;
 }
-
 
 .navbar {
     background-color: #007bff;
@@ -43,7 +43,6 @@ body {
     margin-left: 10px;
 }
 
-
 h1, h2 {
     color: #007bff;
 }
@@ -56,6 +55,7 @@ h1, h2 {
     border: 2px solid #ccc; /* Add border here */
     border-radius: 100px; /* Make border Circle*/
 }
+
 form {
     margin: 20px 0;
     text-align: center;
@@ -71,11 +71,9 @@ form input[type="password"] {
     width: 100%;
     max-width: 300px;
     padding: 10px;
-    margin: 12px auto;
+    margin: 0 auto; /* Center the input horizontally */
     border-radius: 100px;
-
 }
-
 
 form input[type="submit"] {
     background-color: #007bff;
@@ -126,4 +124,58 @@ form input[type="submit"]:hover {
 
 .card:hover {
     transform: translateY(-5px); /* Optional: Add a slight lift effect on hover */
+}
+
+/* for search feature */
+.position-relative {
+    position: relative;
+    display: inline-block; /* Ensure it behaves correctly in a horizontal form */
+}
+
+.suggestions {
+    display: none; /* Initially hide suggestions */
+    position: absolute;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 30%; /* Take full width of parent */
+    top: calc(100% + 5px); /* Position dropdown below the input */
+    left: 0; /* Align dropdown with left edge of input */
+}
+
+.suggestions li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+.form-control {
+    width: calc(100% - 90px); /* Adjust width based on your design */
+    max-width: 300px; /* Example maximum width */
+    padding: 10px; /* Adjust padding as needed */
+    margin: 0; /* Reset margin for specific adjustments */
+}
+
+.input-group {
+    display: flex; /* Use flexbox for input group alignment */
+    align-items: center; /* Align items vertically in the input group */
+}
+
+.input-group-append {
+    display: flex;
+    margin-left: -10px; /* Adjust this value based on your button padding */
+}
+
+.btn {
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 100px; /* Ensure button has rounded corners */
+    margin: 0; /* Reset margin */
 }
