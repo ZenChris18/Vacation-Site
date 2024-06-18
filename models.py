@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
@@ -9,7 +10,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
 
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password, method="pbkdf2:sha256")
 
@@ -17,7 +17,13 @@ class User(UserMixin, db.Model):
         if self.password_hash is None:
             return False
         return check_password_hash(self.password_hash, password)
-        
+
+    def update_password(self, old_password, new_password):
+        if self.check_password(old_password):
+            self.set_password(new_password)
+            return True
+        return False
+
     @property
     def is_active(self):
         # Return True if the user is active, False otherwise

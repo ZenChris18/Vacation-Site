@@ -92,9 +92,42 @@ def logout():
     flash('You have been logged out', 'success')
     return redirect(url_for('index'))
 
-@app.route("/profile")
+@app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+    if request.method == "POST":
+        action = request.form.get("action")
+        if action == "change_username":
+            new_username = request.form.get("new_username")
+            if len(new_username) < 2:
+                flash("Username is too short!", "danger")
+            else:
+                current_user.username = new_username
+                db.session.commit()
+                flash("Username updated successfully!", "success")
+        elif action == "change_password":
+            old_password = request.form.get("old_password")
+            new_password = request.form.get("new_password")
+            confirm_new_password = request.form.get("confirm_new_password")
+            if new_password != confirm_new_password:
+                flash("New passwords don't match!", "danger")
+            elif len(new_password) < 5:
+                flash("New password is too short!", "danger")
+            else:
+                if current_user.update_password(old_password, new_password):
+                    db.session.commit()
+                    flash("Password updated successfully!", "success")
+                else:
+                    flash("Old password is incorrect!", "danger")
+        elif action == "delete_account":
+            user_id = current_user.id
+            logout_user()
+            user = User.query.get(user_id)
+            db.session.delete(user)
+            db.session.commit()
+            flash("Account deleted successfully!", "success")
+            return redirect(url_for("index"))
+
     return render_template('profile.html', user=current_user)
 
 @app.route("/saved_spots")

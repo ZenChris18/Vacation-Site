@@ -5,8 +5,50 @@
     <h2>User Profile</h2>
 </div>
 
-<div class="centered">
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
+<div class="profile-container">
+    <div class="centered">
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+    </div>
+
+    <div class="centered">
+        <form class="profile-form" method="POST" action="{{ url_for('profile') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="action" value="change_username">
+            <div class="form-group">
+                <label for="new_username">New Username:</label>
+                <input type="text" name="new_username" id="new_username" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Username</button>
+        </form>
+    </div>
+
+    <div class="centered">
+        <form class="profile-form" method="POST" action="{{ url_for('profile') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="action" value="change_password">
+            <div class="form-group">
+                <label for="old_password">Old Password:</label>
+                <input type="password" name="old_password" id="old_password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password:</label>
+                <input type="password" name="new_password" id="new_password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_new_password">Confirm New Password:</label>
+                <input type="password" name="confirm_new_password" id="confirm_new_password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+    </div>
+
+    <div class="centered">
+        <form class="profile-form" method="POST" action="{{ url_for('profile') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="action" value="delete_account">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your account?');">Delete Account</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

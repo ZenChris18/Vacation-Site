@@ -73,7 +73,6 @@ form input[type="password"] {
     padding: 10px;
     border-radius: 100px;
     margin-bottom: 10px;
-    border-radius: 100px;
 }
 
 form input[type="submit"] {
@@ -179,4 +178,47 @@ form input[type="submit"]:hover {
     padding: 10px 20px; /* Adjust padding as needed */
     border-radius: 100px; /* Ensure button has rounded corners */
     margin: 0; /* Reset margin */
+}
+
+/* Specific CSS for the profile forms */
+.profile-container {
+    text-align: center;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.profile-form div {
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.profile-form input[type="text"], 
+.profile-form input[type="password"], 
+.profile-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.profile-form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.profile-form input[type="submit"]:hover {
+    background-color: #0056b3;
 }
