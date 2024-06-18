@@ -64,6 +64,12 @@ This project is a web application that showcases various vacation spots in the P
 
 - **Fallback Image**: Used a fallback image (`fallback.jpg`) in case the image URL of a vacation spot is invalid or not available, ensuring a consistent user experience even if spot images fail to load.
 
+-**Dark Mode Support**: The application includes a dark mode feature that allows users to switch between light and dark themes. The user's preference is saved in localStorage, ensuring the chosen theme is maintained across sessions.
+
+-**Separation of filetypes**: The project separates HTML, CSS, and JavaScript files to maintain scalability and readability. This makes the codebase easier to navigate.
+
+
+
 ### Future Enhancements:
 
 - Implementing a backend server to manage and serve vacation spot data more dynamically and securely.
@@ -73,7 +79,7 @@ This project is a web application that showcases various vacation spots in the P
 For a video demonstration of the application, please visit [URL HERE].
 
 ### Problems while developing
-1. <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+1. input type="hidden" name="csrf_token" value="{{ csrf_token() }}"
 - took me a long time to make the csrf token work. 
 - This hides the csrf token which took me a long time to figure out.
 
@@ -81,4 +87,27 @@ For a video demonstration of the application, please visit [URL HERE].
 - how to save user data into a database using sqlite3
 - took me a long time to implement this feature because there are a lot of things i didn't know at the start
 
+3. API for vacation sites data
+- Can not find API that is free that can give me the data i need. Only paid ones are available like Google Maps API
+- I settled for just using a local dataset i made and found on the internet.
 
+4. Saving the new vacation spot
+- When implementing this feature it took me a long time to make it work because i needed to save it to a new table in my database
+- problems in the html pages not loading the correct info.
+
+5. Right spacing for the words
+- had problems fixing the spacing of input box and words. 
+- CSS won't work as intended making me go back and forth through my CSS file and live server to see if it works.
+
+## Credits
+
+This project was created by Yujison Lagamayo. Special thanks the CS50 team for teaching me the course even if it is online recorded.
+
+## Contact
+
+If you have any questions, suggestions, or feedback, feel free to email me at: yujisonlag@gmail.com 
+
+# About CS50x
+This is CS50, Harvard University’s introduction to the intellectual enterprises of computer science and the art of programming, for concentrators and non-concentrators alike, with or without prior programming experience. (Two thirds of CS50 students have never taken CS before.) This course teaches you how to solve problems, both with and without code, with an emphasis on correctness, design, and style. Topics include computational thinking, abstraction, algorithms, data structures, and computer science more generally. Problem sets inspired by the arts, humanities, social sciences, and sciences. More than teach you how to program in one language, this course teaches you how to program fundamentally and how to teach yourself new languages ultimately. The course starts with a traditional but omnipresent language called C that underlies today’s newer languages, via which you’ll learn not only about functions, variables, conditionals, loops, and more, but also about how computers themselves work underneath the hood, memory and all. The course then transitions to Python, a higher-level language that you’ll understand all the more because of C. Toward term’s end, the course introduces SQL, via which you can store data in databases, along with HTML, CSS, and JavaScript, via which you can create web and mobile apps alike. Course culminates in a final project.
+
+link to CS50x: https://cs50.harvard.edu/x/2024/
