@@ -1,6 +1,6 @@
 # PHGetaway - Vacation Spots Management Web App
 
-#### Video Demo:  [URL HERE]
+#### Video Demo:  https://youtu.be/nJKdMYG0A2E
 
 #### Description:
 This project is a web application that showcases various vacation spots in the Philippines and also worldwide vacation spots but it isn't the main focus. It loads vacation spot data from a dataset i made and allows users to view details of each spot by clicking on the respective cards. The application has a feature that users can scroll infinitely to fetch more vacation spots as the user scrolls down the page.
@@ -76,7 +76,7 @@ This project is a web application that showcases various vacation spots in the P
 - Adding other people as friends and have chat system and reviews
 
 
-For a video demonstration of the application, please visit [URL HERE].
+For a video demonstration of the application, please visit https://youtu.be/nJKdMYG0A2E
 
 ### Problems while developing
 1. input type="hidden" name="csrf_token" value="{{ csrf_token() }}"
