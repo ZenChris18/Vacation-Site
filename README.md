@@ -3,7 +3,7 @@
 #### Video Demo:  [URL HERE]
 
 #### Description:
-This project is a web application that showcases various vacation spots in the Philippines. It dynamically loads vacation spot data from a server and allows users to view details of each spot by clicking on the respective cards. The application employs infinite scrolling to fetch more vacation spots as the user scrolls down the page.
+This project is a web application that showcases various vacation spots in the Philippines and also worldwide vacation spots but it isn't the main focus. It loads vacation spot data from a dataset i made and allows users to view details of each spot by clicking on the respective cards. The application has a feature that users can scroll infinitely to fetch more vacation spots as the user scrolls down the page.
 
 ### Libraries Used:
 - **beautifulsoup4==4.12.3**
@@ -34,10 +34,15 @@ This project is a web application that showcases various vacation spots in the P
 - Implementing a backend server to manage and serve vacation spot data more dynamically and securely.
 - Adding user authentication and personalized features such as favorite spots and user reviews.
 
-This project demonstrates the use of modern web development techniques such as asynchronous data loading, responsive design, and progressive enhancement. It aims to provide users with a visually engaging and efficient way to explore vacation spots in the Philippines.
+This project demonstrates the use of modern web development techniques such as asynchronous data loading, responsive design, and progressive enhancement. It aims to provide users with a visually engaging and efficient way to explore vacation spots in the Philippines and if they prefer also worldwide vacation spots.
 
 For a video demonstration of the application, please visit [URL HERE].
 
-<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-This hides the csrf token which took me a long time to figure out.
+### Problems while developing
+1. <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+- took me a long time to make the csrf token work. 
+- This hides the csrf token which took me a long time to figure out.
 
+2. Log in and Register
+- how to save user data into a database using sqlite3
+- took me a long time to implement this feature because there are a lot of things i didn't know at the start

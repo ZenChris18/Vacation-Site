@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PinasGetaway</title>
+    <title>PHGetaway</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="{{ url_for('static', filename='js/flash-message.js') }}"></script>
@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
-            <a href="{{ url_for('index') }}">PinasGetaway</a>
+            <a href="{{ url_for('index') }}">PHGetaway</a>
             {% if request.path == url_for('index') %}
                 <a href="{{ url_for('worldwide_sites') }}">Worldwide Tourist Spots</a>
             {% elif request.path == url_for('worldwide_sites') %}
