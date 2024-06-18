@@ -23,7 +23,7 @@ init_db(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -48,7 +48,7 @@ def login():
             login_user(user, remember=remember)  # Set remember parameter
             return redirect(url_for("profile"))
         else:
-            flash("Login Unsuccessful. Please check email and password", 'danger')
+            flash("Login Unsuccessful. Please check email and password", "danger")
     return render_template("login.html")
 
 @app.route('/register', methods=["GET", "POST"])
@@ -85,12 +85,12 @@ def register():
             return redirect(url_for("profile"))
     return render_template("register.html")
 
-@app.route('/logout')
+@app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    flash('You have been logged out', 'success')
-    return redirect(url_for('index'))
+    flash("You have been logged out", "success")
+    return redirect(url_for("index"))
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required

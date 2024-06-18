@@ -1,19 +1,43 @@
-# Vacation-site
-Libraries Used
-1. Flask - pip install Flask
-2. Flask-Login - pip install Flask-Login
-3. SQLAlchemy - pip install SQLAlchemy
-4. Flask-WTF - pip install Flask-WTF
-5. Flask-WTF CSRFProtect - pip install Flask-WTF
-6. requests
-7. random
-8. pip install requests beautifulsoup4
+# Vacation Spots Web App
 
+#### Video Demo:  [URL HERE]
 
-Added this line of code in the forms login.html and register.html:
+#### Description:
+This project is a web application that showcases various vacation spots in the Philippines. It dynamically loads vacation spot data from a server and allows users to view details of each spot by clicking on the respective cards. The application employs infinite scrolling to fetch more vacation spots as the user scrolls down the page.
+
+### Libraries Used:
+- **beautifulsoup4==4.12.3**
+- **Flask==3.0.3**
+- **Flask_Login==0.6.3**
+- **flask_sqlalchemy==3.1.1**
+- **flask_wtf==1.2.1**
+- **pandas==2.2.2**
+- **Requests==2.32.3**
+- **Werkzeug==3.0.3**
+
+### Project Structure:
+
+- **index.html**: Contains the main HTML structure for displaying vacation spots. It includes placeholders for dynamically loaded vacation spot cards and a loading indicator.
+
+- **styles.css**: Defines the styles for the vacation spot cards, layout, and loading indicator to ensure a visually appealing and responsive design.
+
+- **script.js**: Implements the client-side JavaScript logic. It handles fetching vacation spot data from the server via AJAX (using `fetch` API), dynamically creating HTML elements for each spot, and linking each card to its respective details page.
+
+### Design Choices:
+
+- **Infinite Scrolling**: Implemented to enhance user experience by loading vacation spots gradually as the user scrolls, reducing initial load time and providing a seamless browsing experience.
+
+- **Fallback Image**: Used a fallback image (`fallback.jpg`) in case the image URL of a vacation spot is invalid or not available, ensuring a consistent user experience even if spot images fail to load.
+
+### Future Enhancements:
+
+- Implementing a backend server to manage and serve vacation spot data more dynamically and securely.
+- Adding user authentication and personalized features such as favorite spots and user reviews.
+
+This project demonstrates the use of modern web development techniques such as asynchronous data loading, responsive design, and progressive enhancement. It aims to provide users with a visually engaging and efficient way to explore vacation spots in the Philippines.
+
+For a video demonstration of the application, please visit [URL HERE].
+
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-pip install Flask==2.3.2 Flask-Login==0.6.2 Werkzeug==2.3.6 requests beautifulsoup4 numpy pandas matplotlib scikit-learn
-
-
 This hides the csrf token which took me a long time to figure out.
+
