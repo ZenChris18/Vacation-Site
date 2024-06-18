@@ -13,4 +13,7 @@ Libraries Used
 Added this line of code in the forms login.html and register.html:
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
+pip install Flask==2.3.2 Flask-Login==0.6.2 Werkzeug==2.3.6 requests beautifulsoup4 numpy pandas matplotlib scikit-learn
+
+
 This hides the csrf token which took me a long time to figure out.
