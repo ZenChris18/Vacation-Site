@@ -11,11 +11,11 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
-            <a href="{{ url_for('index') }}">PHGetaway</a>
+            <a href="{{ url_for('index') }}" id="home-link">PHGetaway</a>
             {% if request.path == url_for('index') %}
-                <a href="{{ url_for('worldwide_sites') }}">Worldwide Tourist Spots</a>
+                <a href="{{ url_for('worldwide_sites') }}" id="worldwide-link">Worldwide Tourist Spots</a>
             {% elif request.path == url_for('worldwide_sites') %}
-                <a href="{{ url_for('index') }}">Philippine Tourist Spots</a>
+                <a href="{{ url_for('index') }}" id="philippine-link">Philippine Tourist Spots</a>
             {% endif %}
         </div>
         <div class="navbar-right">
@@ -68,5 +68,6 @@
     <!--Dark mode js-->
     <script src="{{ url_for('static', filename='js/dark-mode.js') }}"></script>
     <script src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/phone-screen-layout.js') }}"></script>
 </body>
 </html>

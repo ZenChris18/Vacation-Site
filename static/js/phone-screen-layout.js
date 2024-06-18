@@ -1,20 +1,22 @@
-// Function to update navbar links and title based on screen size
-function updateNavbarAndTitle() {
+// Function to update navbar links based on screen width
+function updateNavbarLinks() {
     const worldwideLink = document.getElementById('worldwide-link');
     const philippineLink = document.getElementById('philippine-link');
-    const titleElement = document.getElementById('tourist-spots-title');
+    const homeLink = document.getElementById('home-link');
 
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 768) {  // Adjust this breakpoint as needed
         worldwideLink.textContent = 'World';
         philippineLink.textContent = 'Philippines';
-        titleElement.textContent = '{{ title_mobile }}';
+        homeLink.textContent = 'PHGetaway';
     } else {
-        worldwideLink.textContent = '{{ nav_worldwide }}';
-        philippineLink.textContent = '{{ nav_philippine }}';
-        titleElement.textContent = '{{ title_desktop }}';
+        worldwideLink.textContent = 'Worldwide Tourist Spots';
+        philippineLink.textContent = 'Philippine Tourist Spots';
+        homeLink.textContent = 'PHGetaway';
     }
 }
 
-// Call updateNavbarAndTitle initially and on window resize
-document.addEventListener('DOMContentLoaded', updateNavbarAndTitle);
-window.addEventListener('resize', updateNavbarAndTitle);
+// Call updateNavbarLinks initially and on window resize
+document.addEventListener('DOMContentLoaded', function() {
+    updateNavbarLinks();  // Initial call
+    window.addEventListener('resize', updateNavbarLinks);  // Call on resize
+});
