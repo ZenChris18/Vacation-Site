@@ -7,12 +7,12 @@ body {
     padding: 0;
 }
 
-.error {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 0.5em;
+/* Typography */
+h1, h2 {
+    color: #007bff;
 }
 
+/* Navbar */
 .navbar {
     background-color: #007bff;
     overflow: hidden;
@@ -43,19 +43,17 @@ body {
     margin-left: 10px;
 }
 
-h1, h2 {
-    color: #007bff;
-}
-
-.container-form {
+/* Container and Form Styling */
+.container-form, .profile-container {
     text-align: center;
-    max-width: 400px; /* how big the border */
-    margin: 110px auto; /* Adjust margin to add space around the container */
-    padding: 20px; /* Reduce padding to make the container more compact */
-    border: 2px solid #ccc; /* Add border here */
-    border-radius: 100px; /* Make border Circle*/
+    max-width: 400px;
+    margin: 50px auto; /* Increased margin for better centering */
+    padding: 30px; /* Increased padding for better spacing */
+    border: 2px solid #ccc;
+    border-radius: 20px; /* Slightly reduce border radius */
 }
 
+/* Form Styles */
 form {
     margin: 20px 0;
     text-align: center;
@@ -67,30 +65,65 @@ form div {
 
 form input[type="text"], 
 form input[type="email"], 
-form input[type="password"] {
+form input[type="password"],
+.profile-form input[type="text"], 
+.profile-form input[type="password"] {
     width: 100%;
     max-width: 300px;
-    padding: 10px;
-    border-radius: 100px;
-    margin-bottom: 10px;
+    padding: 12px; /* Increased padding for better touch targets */
+    border-radius: 20px; /* Slightly reduce border radius */
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    border: 1px solid #ccc; /* Soften the border */
 }
 
-form input[type="submit"] {
+form input[type="submit"], 
+.profile-form input[type="submit"] {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px; /* Increased padding for better clickability */
     border: none;
-    border-radius: 100px;
+    border-radius: 20px; /* Slightly reduce border radius */
     cursor: pointer;
 }
 
-form input[type="submit"]:hover {
+form input[type="submit"]:hover, 
+.profile-form input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Button Styles */
+.btn {
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 20px; /* Ensure button has rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease; /* Smooth transition */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Example scale on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Alert Styles */
 .alert {
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 15px; /* Increased padding for better visibility */
+    margin-bottom: 20px; /* Increased margin for better spacing */
     border: 1px solid transparent;
     border-radius: 4px;
 }
@@ -107,6 +140,7 @@ form input[type="submit"]:hover {
     border-color: #f5c6cb;
 }
 
+/* Miscellaneous */
 .centered {
     text-align: center;
 }
@@ -122,74 +156,12 @@ form input[type="submit"]:hover {
     transition: transform 0.2s ease; /* Optional: Add a smooth transition on hover */
 }
 
+
 .card:hover {
     transform: translateY(-5px); /* Optional: Add a slight lift effect on hover */
 }
 
-/* for search feature */
-.position-relative {
-    position: relative;
-    display: inline-block; /* Ensure it behaves correctly in a horizontal form */
-}
-
-.suggestions {
-    display: none; /* Initially hide suggestions */
-    position: absolute;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 1000;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 30%; /* Take full width of parent */
-    top: calc(100% + 5px); /* Position dropdown below the input */
-    left: 0; /* Align dropdown with left edge of input */
-}
-
-.suggestions li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.suggestions li:hover {
-    background-color: #f0f0f0;
-}
-
-.form-control {
-    width: calc(100% - 90px); /* Adjust width based on your design */
-    max-width: 300px; /* Example maximum width */
-    padding: 10px; /* Adjust padding as needed */
-    margin: 0; /* Reset margin for specific adjustments */
-}
-
-.input-group {
-    display: flex; /* Use flexbox for input group alignment */
-    align-items: center; /* Align items vertically in the input group */
-}
-
-.input-group-append {
-    display: flex;
-    margin-left: -10px; /* Adjust this value based on your button padding */
-}
-
-.btn {
-    padding: 10px 20px; /* Adjust padding as needed */
-    border-radius: 100px; /* Ensure button has rounded corners */
-    margin: 0; /* Reset margin */
-}
-
 /* Specific CSS for the profile forms */
-.profile-container {
-    text-align: center;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 100px;
-}
-
 .profile-form {
     display: flex;
     flex-direction: column;
@@ -203,15 +175,6 @@ form input[type="submit"]:hover {
     max-width: 300px;
 }
 
-.profile-form input[type="text"], 
-.profile-form input[type="password"], 
-.profile-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 100px;
-    margin-bottom: 10px;
-}
-
 .profile-form input[type="submit"] {
     background-color: #007bff;
     color: white;
@@ -221,4 +184,80 @@ form input[type="submit"]:hover {
 
 .profile-form input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-form, .profile-container {
+        max-width: 90%; /* Adjust maximum width for smaller screens */
+        padding: 20px; /* Decrease padding for smaller screens */
+    }
+
+    form input[type="text"], 
+    form input[type="email"], 
+    form input[type="password"],
+    .profile-form input[type="text"], 
+    .profile-form input[type="password"] {
+        max-width: 100%; /* Full width on smaller screens */
+        padding: 10px; /* Decrease padding for smaller inputs */
+    }
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.dark-mode .navbar {
+    background-color: #212529;
+}
+
+.dark-mode .navbar a {
+    color: #fff;
+}
+
+.dark-mode .navbar a:hover {
+    background-color: #1a1e21;
+}
+
+/* Default light mode styles */
+.card {
+    background-color: #fff; /* Light background color */
+    color: #333; /* Dark text color */
+}
+
+/* Dark mode styles */
+body.dark-mode .card {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color */
+}
+
+/* Default styles for .suggestions */
+.suggestions {
+    display: none; /* Initially hide suggestions */
+    position: absolute;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 25%; /* Adjust width as needed */
+    top: calc(100% + 5px); /* Position dropdown below the input */
+    left: 0; /* Align dropdown with left edge of input */
+}
+
+/* Dark mode specific styles for .suggestions */
+body.dark-mode .suggestions {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color */
+    border-color: #666; /* Darker border color */
+}
+
+body.dark-mode .form-control {
+    background-color: #343a40; /* Dark background color */
+    color: #f8f9fa; /* Light text color */
 }

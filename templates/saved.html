@@ -1,20 +1,28 @@
-{% extends "layout2.html" %}
+{% extends "layout.html" %}
 
 {% block body %}
     <div class="container mt-4">
         <h2>Saved Spots</h2>
         {% if saved_spots %}
-            <ul class="list-group mt-3">
+            <div class="row">
                 {% for spot in saved_spots %}
-                    <li class="list-group-item">
-                        <a href="{{ url_for('details', name=spot.spot_name) }}">{{ spot.spot_name }} - {{ spot.spot_location }}</a>
-                        <form action="{{ url_for('remove_spot', spot_id=spot.id) }}" method="post" class="float-end">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                        </form>
-                    </li>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ spot.spot_name }} - {{ spot.spot_location }}</h5>
+                                <p class="card-text">{{ spot.spot_description }}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <a href="{{ url_for('details', name=spot.spot_name) }}" class="btn btn-primary">Details</a>
+                                <form action="{{ url_for('remove_spot', spot_id=spot.id) }}" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
             <p>No spots saved yet.</p>
         {% endif %}
