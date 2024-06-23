@@ -2,6 +2,7 @@
 
 #### Video Demo:  https://youtu.be/nJKdMYG0A2E
 #### Website Link: https://vacation-site-e83v.onrender.com/
+(Just wait if the site is taking long to load)
 
 #### Description:
 This project is a web application that showcases various vacation spots in the Philippines and also worldwide vacation spots but it isn't the main focus. It loads vacation spot data from a dataset i made and allows users to view details of each spot by clicking on the respective cards. The application has a feature that users can scroll infinitely to fetch more vacation spots as the user scrolls down the page.
